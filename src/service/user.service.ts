@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { userRepository } from "./user.repository";
+import { userRepository } from "../repository/user.repository";
 
 export function userService(app: FastifyInstance) {
     const repo = userRepository(app);

@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply, FastifyInstance } from 'fastify';
-import { userService } from './user.service';
+import { userService } from '../service/user.service';
 
 // definir pasta para interfaces
 interface CreateUserBody {

@@ -1,8 +1,8 @@
 import Fastify from 'fastify';
 import prismaPlugin from './plugins/prisma.plugin';
 
-import userRoutes from './modules/user/user.route';
-import authRoutes from './modules/auth/auth.routes';
+import userRoutes from './routes/user.route';
+import authRoutes from './routes/auth.routes';
 
 export function buildApp() {
   const app = Fastify();

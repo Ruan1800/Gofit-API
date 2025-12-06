@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify";
-import { authService } from "./auth.service";
+import { authService } from "../service/auth.service";
 
 
 // definir pasta para interfaces
