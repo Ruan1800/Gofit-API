@@ -2,6 +2,11 @@ import { FastifyInstance } from "fastify";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { userRepository } from "../repository/user.repository";
+import {
+    NotFoundException,
+    ConflictException,
+    BadRequestException,
+} from "../core/errors/http.exception";
 
 export function userService(app: FastifyInstance) {
     const repo = userRepository(app);
@@ -13,7 +18,7 @@ export function userService(app: FastifyInstance) {
 
         getUserById: async (id: string) => {
             const user = await repo.findById(id);
-            if (!user) throw new Error("Usuário não encontrado");
+            if (!user) throw new NotFoundException("Usuário não encontrado");
             return user;
         },
 
@@ -24,7 +29,7 @@ export function userService(app: FastifyInstance) {
 
         register: async (input: { name: string; email: string; password: string }) => {
             const exists = await repo.findByEmail(input.email);
-            if (exists) throw new Error("Email já está em uso");
+            if (exists) throw new ConflictException("Email já está em uso");
 
             const hashed = await bcrypt.hash(input.password, 10);
 
@@ -46,7 +51,7 @@ export function userService(app: FastifyInstance) {
 
         deleteUser: async (id: string) => {
             const user = await repo.findById(id);
-            if (!user) throw new Error("Usuário não encontrado");
+            if (!user) throw new NotFoundException("Usuário não encontrado");
 
             await repo.delete(id);
             return { message: "Usuário deletado com sucesso" };

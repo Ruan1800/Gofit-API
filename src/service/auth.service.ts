@@ -1,23 +1,27 @@
 import { FastifyInstance } from "fastify";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { authRepository } from "../repository/auth.repository";
+import { userRepository } from "../repository/user.repository";
+import {
+  NotFoundException,
+  UnauthorizedException,
+} from "../core/errors/http.exception";
 
 export function authService(app: FastifyInstance) {
-  const repo = authRepository(app);
+  const repo = userRepository(app);
 
   return {
     login: async (email: string, password: string) => {
       const user = await repo.findByEmail(email);
 
       if (!user) {
-        throw new Error("Usuário não encontrado");
+        throw new NotFoundException("Usuário não encontrado");
       }
 
       const passwordMatch = await bcrypt.compare(password, user.password);
 
       if (!passwordMatch) {
-        throw new Error("Senha incorreta");
+        throw new UnauthorizedException("Senha inválida");
       }
 
       const token = jwt.sign(

@@ -4,5 +4,5 @@ import { authController } from "../controller/auth.controller";
 export default async function authRoutes(app: FastifyInstance) {
   const controller = authController(app);
 
-  app.post("/auth/login", controller.login);
+  app.post("/login", controller.login);
 }
