@@ -1,12 +1,18 @@
-import Fastify from "fastify";
-import routes from "./routes/index";
+import Fastify from 'fastify';
+import prismaPlugin from './plugins/prisma.plugin';
+
+import userRoutes from './modules/user/user.route';
+import authRoutes from './modules/auth/auth.routes';
 
 export function buildApp() {
-  const app = Fastify({
-    logger: true,
-  });
+  const app = Fastify();
 
-  app.register(routes);
+  //plugins
+  app.register(prismaPlugin);
+
+  //routes
+  app.register(userRoutes, { prefix: '/api' }); // ajustar esse prefixo
+  app.register(authRoutes, { prefix: "/api" }); // ajustar esse prefixo
 
   return app;
 }
