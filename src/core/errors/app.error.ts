@@ -1,5 +1,5 @@
-import { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { HttpException } from "./http.exception";
+import { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { HttpException } from './http.exception';
 
 export function registerErrorHandler(app: FastifyInstance) {
   app.setErrorHandler(
@@ -9,15 +9,15 @@ export function registerErrorHandler(app: FastifyInstance) {
           statusCode: error.statusCode,
           error: error.error,
           message: error.message,
+          ...(error.hasOwnProperty('details') ? { details: (error as any).details } : {}),
         });
       }
 
       return reply.status(500).send({
         statusCode: 500,
-        error: "Internal Server Error",
-        message: "Algo deu errado no servidor.",
+        error: 'Internal Server Error',
+        message: 'Algo deu errado no servidor.',
       });
-    }
+    },
   );
-
 }

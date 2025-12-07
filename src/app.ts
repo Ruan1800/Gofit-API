@@ -4,7 +4,7 @@ import prismaPlugin from './plugins/prisma.plugin';
 import userRoutes from './routes/user.route';
 import authRoutes from './routes/auth.routes';
 
-import { registerErrorHandler } from "./core/errors/app.error";
+import { registerErrorHandler } from './core/errors/app.error';
 
 export function buildApp() {
   const app = Fastify();
@@ -17,7 +17,7 @@ export function buildApp() {
 
   //routes
   app.register(userRoutes, { prefix: '/users' });
-  app.register(authRoutes, { prefix: "/auth" });
+  app.register(authRoutes, { prefix: '/auth' });
 
   return app;
 }
