@@ -1,7 +1,7 @@
 import Fastify from 'fastify';
 import prismaPlugin from './plugins/prisma.plugin';
 
-import userRoutes from './routes/user.route';
+import userRoutes from './routes/user.routes';
 import authRoutes from './routes/auth.routes';
 
 import { registerErrorHandler } from './core/errors/app.error';
