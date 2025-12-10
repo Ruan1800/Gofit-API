@@ -26,7 +26,7 @@ export function userController(app: FastifyInstance) {
 
     createUser: async (req: FastifyRequest, reply: FastifyReply) => {
       const parsed: CreateUserDTO = validateDTO(createUserSchema)(req, reply);
-
+       
       const result = await service.register(parsed);
       return reply.code(201).send(result);
     },
